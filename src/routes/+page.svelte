@@ -33,6 +33,16 @@
         "\'": "‘",
     };
 
+    const punctuationClaude2Pairs = {
+        ",": "，",
+        "?": "？",
+        "!": "！",
+        ":": "：",
+        ";": "；",
+        "\"": "“",
+        "\'": "‘",
+    };
+
     let checkboxes = Object.keys(punctuationPairs).reduce((acc, punctuation) => {
         acc[punctuation] = false;
         return acc;
@@ -97,6 +107,12 @@
         }
     }
 
+    function selectClaude2() {
+        for (const key of Object.keys(punctuationClaude2Pairs)) {
+            checkboxes[key] = true;
+        }
+    }
+
     function deselectAll() {
         for (const key in checkboxes) {
             checkboxes[key] = false;
@@ -130,8 +146,11 @@
 <div class="app-container flex flex-col p-5 font-sans">
     <div class="checkboxes-container flex space-x-4 mb-4">
         <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={selectAll}>全选</button>
-        <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={deselectAll}>全部取消</button>
+        <button class="px-4 py-2 text-sm text-black bg-blue-300 rounded" on:click={deselectAll}>全部取消</button>
         <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={selectCommon}>常见</button>
+        <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={selectClaude2}>Claude2</button>
+    </div>
+    <div class="flex space-x-4">
         {#each Object.keys(checkboxes) as punctuation}
             <div class="checkbox-container flex items-center space-x-2">
                 <input type="checkbox" bind:checked={checkboxes[punctuation]} id={punctuation} class="rounded"/>
