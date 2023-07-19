@@ -146,7 +146,7 @@
 <div class="app-container flex flex-col p-5 font-sans">
     <div class="checkboxes-container flex space-x-4 mb-4">
         <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={selectAll}>全选</button>
-        <button class="px-4 py-2 text-sm text-black bg-blue-300 rounded" on:click={deselectAll}>全部取消</button>
+        <button class="px-4 py-2 text-sm text-black bg-blue-300 rounded" on:click={deselectAll}>清空</button>
         <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={selectCommon}>常见</button>
         <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={selectClaude2}>Claude2</button>
     </div>
