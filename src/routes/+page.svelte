@@ -1,6 +1,7 @@
 <script>
     import {onMount} from 'svelte';
     import {fly} from 'svelte/transition';
+    import {punctuationToChinese} from "$lib";
 
     let text = "";
     let result = "";
@@ -41,6 +42,8 @@
         ";": "；",
         "\"": "“",
         "\'": "‘",
+        "(": "（",
+        ")": "）",
     };
 
     let checkboxes = Object.keys(punctuationPairs).reduce((acc, punctuation) => {
@@ -61,38 +64,7 @@
     }
 
     function convertPunctuation() {
-        result = text
-        for (const key in checkboxes) {
-            if (checkboxes[key]) {
-                const regex = new RegExp('\\' + key, 'g');
-                result = result.replace(regex, punctuationPairs[key]);
-            }
-        }
-
-        if (checkboxes["\""]) {
-            let isDoubleQuoteStart = true;
-            result = result.replace(/"/g, () => {
-                if (isDoubleQuoteStart) {
-                    isDoubleQuoteStart = false;
-                    return '“';
-                } else {
-                    isDoubleQuoteStart = true;
-                    return '”';
-                }
-            });
-        }
-        if (checkboxes["\'"]) {
-            let isSingleQuoteStart = true;
-            result = result.replace(/'/g, () => {
-                if (isSingleQuoteStart) {
-                    isSingleQuoteStart = false;
-                    return '‘';
-                } else {
-                    isSingleQuoteStart = true;
-                    return '’';
-                }
-            });
-        }
+        result = punctuationToChinese(text, checkboxes)
     }
 
     function selectAll() {
