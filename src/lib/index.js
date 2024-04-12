@@ -2,19 +2,67 @@
  * Replaces punctuation marks in a text with English equivalents.
  *
  * @param {string} text - The text containing punctuation marks to be replaced.
+ * @param checkItems
  * @return {string} - The updated text with English punctuation marks.
  */
-export function punctuationToEnglish(text) {
-    return text.replace(/，/g, ",")
-        .replace(/。/g, ".")
-        .replace(/'/g, "'")
-        .replace(/'/g, "'")
-        .replace(/"/g, '"')
-        .replace(/"/g, '"')
-        .replace(/；/g, ";")
-        .replace(/：/g, ":")
-        .replace(/？/g, "?")
-        .replace(/！/g, "!");
+
+export function punctuationToEnglish(text, checkItems) {
+
+    if (checkItems['……']) {
+        text = text.replace(/……/g, "...");
+    }
+
+    let result = text.split("");
+
+    for (let i = 0; i < result.length; i++) {
+        const cur = result[i];
+        if (checkItems[cur]) {
+            switch (cur) {
+                case "，":
+                    result[i] = ",";
+                    break;
+                case "。":
+                    result[i] = ".";
+                    break;
+                case "——":
+                    result[i] = "-";
+                    break;
+                case "；":
+                    result[i] = ";";
+                    break;
+                case "：":
+                    result[i] = ":";
+                    break;
+                case "？":
+                    result[i] = "?";
+                    break;
+                case "！":
+                    result[i] = "!";
+                    break;
+                case "（":
+                    result[i] = "(";
+                    break;
+                case "）":
+                    result[i] = ")";
+                    break;
+                case "【":
+                    result[i] = "[";
+                    break;
+                case "】":
+                    result[i] = "]";
+                    break;
+                case "“":
+                case "”":
+                    result[i] = '"';
+                    break;
+                case '‘':
+                case '’':
+                    result[i] = "'";
+                    break;
+            }
+        }
+    }
+    return result.join("");
 }
 
 /**

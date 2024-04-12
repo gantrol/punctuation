@@ -1,10 +1,14 @@
 <script>
     import { onMount } from 'svelte';
     import { fly } from 'svelte/transition';
-    import { punctuationToChinese, punctuationToEnglish, chineseRegex } from "$lib";
+    import { punctuationToChinese, punctuationToEnglish } from "$lib";
 
     let text = "";
     let result = "";
+
+    const CH2EN = "，。→ ,.";
+    const EN2CH = ",.→ ，。";
+    let inputLanguage = EN2CH;
 
     const punctuationPairs = {
         "...": "……",
@@ -46,7 +50,8 @@
         ")": "）",
     };
 
-    let checkboxes = Object.keys(punctuationPairs).reduce((acc, punctuation) => {
+    $: checkboxes_data =  inputLanguage === EN2CH ? Object.keys(punctuationPairs) : Object.values(punctuationPairs);
+    $: checkboxes = checkboxes_data.reduce((acc, punctuation) => {
         acc[punctuation] = false;
         return acc;
     }, {});
@@ -64,7 +69,16 @@
     }
 
     function convertPunctuation() {
-        result = punctuationToChinese(text, checkboxes)
+        // // 感觉auto不了
+        // if (inputLanguage === "auto") {
+        //     inputLanguage = chineseRegex.test(text) ? "chinese" : "english";
+        // }
+        result = inputLanguage === CH2EN ? punctuationToEnglish(text, checkboxes) : punctuationToChinese(text, checkboxes);
+    }
+
+    function swapLanguage() {
+        // TODO: keep select?
+        inputLanguage = inputLanguage === CH2EN ? EN2CH : CH2EN;
     }
 
     function selectAll() {
@@ -100,6 +114,73 @@
     })
 </script>
 
+<section class="rounded-inherit mb-0" aria-labelledby="text-translator-section-heading">
+    <h2 class="sr-only" id="text-translator-section-heading">中英文标点互换</h2>
+    <div class="rounded-inherit">
+        <div class="relative z-[2] min-[768px]:col-span-3">
+            <div class="flex min-h-[56px] w-full flex-row flex-wrap px-3 py-2">
+                <div class="flex flex-1 items-center space-x-1.5">
+                    <div class="flex">
+                        <div class="mx-1 flex items-center">
+                            <button class="flex items-center py-2 px-3 space-x-1 text-base rounded transition-colors cursor-pointer enabled:hover:bg-gray-200 disabled:cursor-default disabled:text-gray-500 text-blue-600" on:click={swapLanguage}>
+                                <span>
+                                    <strong class="font-semibold">{inputLanguage}</strong>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-4">
+                        <div>
+                            <button class="px-4 py-2 text-sm text-white bg-green-600 rounded mr-4 hover:bg-green-700" on:click={convertPunctuation}>转换标点</button>
+                            <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={copyToClipboard}>复制结果</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mb-4 mx-6">
+                    <div class="flex space-x-2">
+                        <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectAll}>全选</button>
+                        <button class="px-4 py-2 text-sm text-black bg-gray-200 rounded hover:bg-gray-300" on:click={deselectAll}>清空</button>
+                        <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectCommon}>常见</button>
+                        <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectClaude2}>Claude2</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap">
+                    {#each Object.keys(checkboxes) as punctuation}
+                        <div class="flex items-center space-x-2 mb-2 mr-4">
+                            <input type="checkbox" bind:checked={checkboxes[punctuation]} id={punctuation} class="rounded text-blue-600 focus:ring-blue-500"/>
+                            <label for={punctuation} class="text-sm">{punctuation}</label>
+                        </div>
+                    {/each}
+                </div>
+            </div>
+        </div>
+
+        <div id="textareasContainer" class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+            <div class="relative min-h-[240px] min-w-0 md:min-h-[50vh]">
+                <section aria-labelledby="translation-source-heading" class="h-full rounded border-transparent focus-within:border-blue-600 transition-colors">
+                    <div class="flex h-full flex-col">
+                        <h3 id="translation-source-heading" class="sr-only">Source text</h3>
+                        <div class="relative flex-1 rounded">
+                            <textarea bind:value={text} placeholder="在此输入文本..." class="w-full h-full p-2 rounded border-2 border-gray-300 focus:outline-none focus:border-blue-600"></textarea>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="relative min-h-[240px] min-w-0 md:min-h-[50vh]">
+                <section aria-labelledby="translation-target-heading" class="h-full flex flex-col rounded border-transparent">
+                    <h3 id="translation-target-heading" class="sr-only">Translation results</h3>
+                    <div class="relative flex-1 flex flex-col rounded">
+                        <textarea bind:this={outputArea} readonly placeholder="转换结果" class="w-full h-full p-2 rounded border-2 border-gray-300 focus:outline-none">{result}</textarea>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
 {#if copied}
     <div transition:fly="{{ y: 30, duration: 200 }}"
          class="fixed bottom-0 right-0 p-6 bg-white shadow-lg rounded-md max-w-sm m-4 border-l-4 border-green-400">
@@ -116,30 +197,3 @@
         </div>
     </div>
 {/if}
-
-<div class="app-container flex flex-col p-5 font-sans">
-    <div class="checkboxes-container flex space-x-4 mb-4">
-        <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={selectAll}>全选</button>
-        <button class="px-4 py-2 text-sm text-black bg-blue-300 rounded" on:click={deselectAll}>清空</button>
-        <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={selectCommon}>常见</button>
-        <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={selectClaude2}>Claude2</button>
-    </div>
-    <div class="flex space-x-4">
-        {#each Object.keys(checkboxes) as punctuation}
-            <div class="checkbox-container flex items-center space-x-2">
-                <input type="checkbox" bind:checked={checkboxes[punctuation]} id={punctuation} class="rounded"/>
-                <label for={punctuation} class="text-sm">{punctuation}</label>
-            </div>
-        {/each}
-    </div>
-    <textarea bind:value={text} class="w-full h-64 mb-4 p-2 rounded border-2 border-gray-300"></textarea>
-    <div>
-        <button class="px-4 py-2 text-sm text-white bg-green-500 rounded mb-4" on:click={convertPunctuation}>转换标点
-        </button>
-        <button class="px-4 py-2 text-sm text-white bg-blue-500 rounded" on:click={copyToClipboard}>复制结果</button>
-
-    </div>
-    <textarea bind:this={outputArea} class="w-full h-64 mb-4 p-2 rounded border-2 border-gray-300"
-              readonly>{result}</textarea>
-</div>
-
