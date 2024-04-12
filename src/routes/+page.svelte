@@ -129,7 +129,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="flex justify-between mt-4">
+                    <div class="flex justify-between">
                         <div>
                             <button class="px-4 py-2 text-sm text-white bg-green-600 rounded mr-4 hover:bg-green-700" on:click={convertPunctuation}>转换标点</button>
                             <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={copyToClipboard}>复制结果</button>
@@ -137,7 +137,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-between mb-4 mx-6">
+                <div class="flex justify-between mr-3">
                     <div class="flex space-x-2">
                         <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectAll}>全选</button>
                         <button class="px-4 py-2 text-sm text-black bg-gray-200 rounded hover:bg-gray-300" on:click={deselectAll}>清空</button>
