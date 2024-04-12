@@ -56,6 +56,10 @@
         return acc;
     }, {});
 
+    $: {
+        result = inputLanguage === CH2EN ? punctuationToEnglish(text, checkboxes) : punctuationToChinese(text, checkboxes);
+    }
+
     let copied = false;
 
     async function copyToClipboard() {
@@ -131,7 +135,6 @@
                     </div>
                     <div class="flex justify-between">
                         <div>
-                            <button class="px-4 py-2 text-sm text-white bg-green-600 rounded mr-4 hover:bg-green-700" on:click={convertPunctuation}>转换标点</button>
                             <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={copyToClipboard}>复制结果</button>
                         </div>
                     </div>
@@ -159,9 +162,9 @@
 
         <div id="textareasContainer" class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
             <div class="relative min-h-[240px] min-w-0 md:min-h-[50vh]">
-                <section aria-labelledby="translation-source-heading" class="h-full rounded border-transparent focus-within:border-blue-600 transition-colors">
+                <section aria-labelledby="source-heading" class="h-full rounded border-transparent focus-within:border-blue-600 transition-colors">
                     <div class="flex h-full flex-col">
-                        <h3 id="translation-source-heading" class="sr-only">Source text</h3>
+                        <h3 id="source-heading" class="sr-only">源文本</h3>
                         <div class="relative flex-1 rounded">
                             <textarea bind:value={text} placeholder="在此输入文本..." class="w-full h-full p-2 rounded border-2 border-gray-300 focus:outline-none focus:border-blue-600"></textarea>
                         </div>
@@ -170,8 +173,8 @@
             </div>
 
             <div class="relative min-h-[240px] min-w-0 md:min-h-[50vh]">
-                <section aria-labelledby="translation-target-heading" class="h-full flex flex-col rounded border-transparent">
-                    <h3 id="translation-target-heading" class="sr-only">Translation results</h3>
+                <section aria-labelledby="target-heading" class="h-full flex flex-col rounded border-transparent">
+                    <h3 id="target-heading" class="sr-only">Translation results</h3>
                     <div class="relative flex-1 flex flex-col rounded">
                         <textarea bind:this={outputArea} readonly placeholder="转换结果" class="w-full h-full p-2 rounded border-2 border-gray-300 focus:outline-none">{result}</textarea>
                     </div>
