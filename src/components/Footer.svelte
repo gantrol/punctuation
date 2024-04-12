@@ -19,7 +19,7 @@
             node.style.transform = "rotate(360deg)";
             setTimeout(() => {
                 node.style.transform = "";
-            }, 500);
+            }, 2000);
         };
     }
 </script>
