@@ -2,6 +2,7 @@
     import { onMount } from 'svelte';
     import { fly } from 'svelte/transition';
     import { punctuationToChinese, punctuationToEnglish } from "$lib";
+    import CopyIcon from "$lib/CopyIcon.svelte";
 
     let text = "";
     let result = "";
@@ -66,9 +67,9 @@
 
     let copied = false;
 
-    async function copyToClipboard() {
+    async function copyToClipboard(copy_content) {
         try {
-            await navigator.clipboard.writeText(result);
+            await navigator.clipboard.writeText(copy_content);
             copied = true;
             setTimeout(() => copied = false, 3000);
         } catch (err) {
@@ -136,9 +137,6 @@
                         </div>
                     </div>
                     <div class="flex justify-between">
-                        <div>
-                            <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={copyToClipboard}>复制结果</button>
-                        </div>
                     </div>
                 </div>
 
@@ -146,7 +144,7 @@
                     <div class="flex space-x-2">
                         <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectAll}>全选</button>
                         <button class="px-4 py-2 text-sm text-black bg-gray-200 rounded hover:bg-gray-300" on:click={deselectAll}>清空</button>
-                        <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectCommon}>常见</button>
+<!--                        <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectCommon}>常见</button>-->
                         <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectClaude2}>Claude2</button>
                     </div>
                 </div>
@@ -169,6 +167,9 @@
                         <h2 id="source-heading" class="sr-only">源文本</h2>
                         <div class="relative flex-1 rounded">
                             <textarea bind:value={text} placeholder="在此输入文本..." class="w-full h-full p-2 rounded border-2 border-gray-300 focus:outline-none focus:border-blue-600"></textarea>
+                            <button class="absolute top-2 right-2 px-2 py-1 text-sm text-white bg-sky-200 rounded hover:bg-blue-500" on:click={() => copyToClipboard(text)}>
+                                <CopyIcon />
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -179,6 +180,9 @@
                     <h2 id="target-heading" class="sr-only">转换结果</h2>
                     <div class="relative flex-1 flex flex-col rounded">
                         <textarea bind:this={outputArea} readonly placeholder="转换结果" class="w-full h-full p-2 rounded border-2 border-gray-300 focus:outline-none">{result}</textarea>
+                        <button class="absolute top-2 right-2 px-2 py-1 text-sm text-white bg-sky-200 rounded hover:bg-blue-500" on:click={() => copyToClipboard(result)}>
+                            <CopyIcon />
+                        </button>
                     </div>
                 </section>
             </div>
