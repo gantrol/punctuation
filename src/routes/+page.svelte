@@ -76,12 +76,10 @@
         }
     }
 
-    function convertPunctuation() {
-        // // 感觉auto不了
-        // if (inputLanguage === "auto") {
-        //     inputLanguage = chineseRegex.test(text) ? "chinese" : "english";
-        // }
-        result = inputLanguage === CH2EN ? punctuationToEnglish(text, checkboxes) : punctuationToChinese(text, checkboxes);
+    const keyOrValue = (inputLanguage, dict) => {
+        return inputLanguage === EN2CH
+            ? Object.keys(dict)
+            : Object.values(dict) ;
     }
 
     function swapLanguage() {
@@ -96,14 +94,14 @@
     }
 
     function selectCommon() {
-        const selected_list = Object.keys(punctuationCommonPairs);
+        const selected_list = keyOrValue(inputLanguage, punctuationCommonPairs);
         for (const key in checkboxes) {
             checkboxes[key] = selected_list.includes(key);
         }
     }
 
     function selectClaude2() {
-        const selected_list = Object.keys(punctuationClaude2Pairs);
+        const selected_list = keyOrValue(inputLanguage, punctuationClaude2Pairs);
         for (const key in checkboxes) {
             checkboxes[key] = selected_list.includes(key);
         }
