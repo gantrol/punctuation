@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import { fly } from 'svelte/transition';
     import { punctuationToChinese, punctuationToEnglish } from "$lib";
-    import CopyIcon from "$lib/CopyIcon.svelte";
+    import CopyIcon from "../components/icons/CopyIcon.svelte";
     import Footer from "../components/Footer.svelte";
 
     let text = "";
@@ -131,7 +131,7 @@
                 <div class="flex flex-1 items-center space-x-1.5">
                     <div class="flex">
                         <div class="mx-1 flex items-center">
-                            <button class="flex items-center py-2 px-3 space-x-1 text-base rounded transition-colors cursor-pointer enabled:hover:bg-gray-200 disabled:cursor-default disabled:text-gray-500 text-blue-600" on:click={swapLanguage}>
+                            <button class="flex items-center bg-gray-100 py-2 px-3 space-x-1 text-base rounded transition-colors cursor-pointer enabled:hover:bg-gray-200 disabled:cursor-default disabled:text-gray-500 text-blue-600" on:click={swapLanguage}>
                                 <span>
                                     <strong class="font-semibold">{inputLanguage}</strong>
                                 </span>
@@ -192,6 +192,8 @@
     </div>
 </section>
 
+<Footer/>
+
 {#if copied}
     <div transition:fly="{{ y: 30, duration: 200 }}"
          class="fixed bottom-0 right-0 p-6 bg-white shadow-lg rounded-md max-w-sm m-4 border-l-4 border-green-400">
@@ -209,4 +211,3 @@
     </div>
 {/if}
 
-<Footer/>
