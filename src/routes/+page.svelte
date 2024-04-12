@@ -50,8 +50,12 @@
         ")": "）",
     };
 
-    $: checkboxes_data =  inputLanguage === EN2CH ? Object.keys(punctuationPairs) : Object.values(punctuationPairs);
-    $: checkboxes = checkboxes_data.reduce((acc, punctuation) => {
+    $: checkboxes = (
+        inputLanguage === EN2CH
+            ? Object.keys(punctuationPairs)
+            : Object.values(punctuationPairs)
+    )
+        .reduce((acc, punctuation) => {
         acc[punctuation] = false;
         return acc;
     }, {});
