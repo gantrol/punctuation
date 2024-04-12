@@ -1,11 +1,39 @@
 <script>
     import GithubIcon from "./icons/GithubIcon.svelte";
     import GantrolIcon from "./icons/GantrolIcon.svelte";
+    import CurIcon from "./icons/CurIcon.svelte";
+
+    function rotate(node) {
+        node.onmouseover = () => {
+            node.style.transition = "all 0.5s ease-in-out";
+            node.style.transform = "rotate(90deg)";
+        };
+
+        node.onmouseleave = () => {
+            node.style.transform = "";
+        };
+
+        node.onclick = (e) => {
+            e.preventDefault();
+            node.style.transition = "all 0.5s ease-in-out";
+            node.style.transform = "rotate(360deg)";
+            setTimeout(() => {
+                node.style.transform = "";
+            }, 500);
+        };
+    }
 </script>
 
 <footer class="fixed bottom-0 left-0 w-full h-16 flex justify-center items-center space-x-4 bg-gray-900 text-white">
     <a href="https://github.com/gantrol/punctuation" target="_blank" class="flex transition-colors duration-300 bg-black items-center justify-center border-neutral-100 border hover:text-gray-500 hover:border-gray-500 hover:bg-white">
         <GithubIcon />
+    </a>
+    <a
+            href="/"
+            class="transition-colors bg-black duration-300 hover:bg-white flex items-center justify-center"
+            use:rotate
+    >
+        <CurIcon />
     </a>
     <a href="https://www.gantrol.com/" target="_blank" class="transition-colors bg-white duration-300 hover:bg-black flex items-center justify-center">
         <GantrolIcon />
