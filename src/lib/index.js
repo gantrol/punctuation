@@ -24,7 +24,7 @@ export function punctuationToEnglish(text) {
  * @see {@link https://unicode.org/reports/tr18/#Script_Extensions}
  * @since 2021-10-01
  */
-const chineseRegex = /\p{Script=Han}/u;
+export const chineseRegex = /\p{Script=Han}/u;
 
 /**
  * Determines whether the punctuation at the specified position in the given text should be replaced.

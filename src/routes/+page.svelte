@@ -1,7 +1,7 @@
 <script>
-    import {onMount} from 'svelte';
-    import {fly} from 'svelte/transition';
-    import {punctuationToChinese} from "$lib";
+    import { onMount } from 'svelte';
+    import { fly } from 'svelte/transition';
+    import { punctuationToChinese, punctuationToEnglish, chineseRegex } from "$lib";
 
     let text = "";
     let result = "";
@@ -57,7 +57,7 @@
         try {
             await navigator.clipboard.writeText(result);
             copied = true;
-            setTimeout(() => copied = false, 3000); // Display the notification for 3 seconds
+            setTimeout(() => copied = false, 3000);
         } catch (err) {
             console.error('Could not copy text: ', err);
         }
@@ -74,14 +74,16 @@
     }
 
     function selectCommon() {
-        for (const key of Object.keys(punctuationCommonPairs)) {
-            checkboxes[key] = true;
+        const selected_list = Object.keys(punctuationCommonPairs);
+        for (const key in checkboxes) {
+            checkboxes[key] = selected_list.includes(key);
         }
     }
 
     function selectClaude2() {
-        for (const key of Object.keys(punctuationClaude2Pairs)) {
-            checkboxes[key] = true;
+        const selected_list = Object.keys(punctuationClaude2Pairs);
+        for (const key in checkboxes) {
+            checkboxes[key] = selected_list.includes(key);
         }
     }
 
