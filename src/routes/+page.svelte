@@ -169,7 +169,7 @@
                         <h2 id="source-heading" class="sr-only">源文本</h2>
                         <div class="relative flex-1 rounded">
                             <textarea bind:value={text} placeholder="在此输入文本..." class="w-full h-full p-2 rounded border-2 border-gray-300 focus:outline-none focus:border-blue-600"></textarea>
-                            <button class="absolute top-2 right-2 px-2 py-1 text-sm text-white bg-sky-200 rounded hover:bg-blue-500" on:click={() => copyToClipboard(text)}>
+                            <button class="absolute bottom-2 right-2 px-2 py-1 text-sm text-gray-200 rounded hover:bg-blue-500" on:click={() => copyToClipboard(text)}>
                                 <CopyIcon />
                             </button>
                         </div>
@@ -182,7 +182,7 @@
                     <h2 id="target-heading" class="sr-only">转换结果</h2>
                     <div class="relative flex-1 flex flex-col rounded">
                         <textarea bind:this={outputArea} readonly placeholder="转换结果" class="w-full h-full p-2 rounded border-2 border-gray-300 focus:outline-none">{result}</textarea>
-                        <button class="absolute top-2 right-2 px-2 py-1 text-sm text-white bg-sky-200 rounded hover:bg-blue-500" on:click={() => copyToClipboard(result)}>
+                        <button class="absolute bottom-2 right-2 px-2 py-1 text-sm text-gray-200 rounded hover:bg-blue-500" on:click={() => copyToClipboard(result)}>
                             <CopyIcon />
                         </button>
                     </div>
