@@ -7,9 +7,9 @@
 </script>
 
 <svelte:head>
-    <title>在线英文标点转中文标点工具</title>
+    <title>在线中英文标点转换工具</title>
     <meta name="description"
-          content="英文标点转中文标点, 免费, 快速, 准确, 在线, 英文标点转中文"
+          content="英文标点转中文标点，中文标点转英文标点，免费，快速，灵活，准确，在线, "
     >
 </svelte:head>
 

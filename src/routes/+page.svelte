@@ -3,6 +3,7 @@
     import { fly } from 'svelte/transition';
     import { punctuationToChinese, punctuationToEnglish } from "$lib";
     import CopyIcon from "$lib/CopyIcon.svelte";
+    import Footer from "../components/Footer.svelte";
 
     let text = "";
     let result = "";
@@ -144,9 +145,9 @@
                 <div class="flex justify-between mr-3">
                     <div class="flex space-x-2">
                         <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectAll}>全选</button>
-                        <button class="px-4 py-2 text-sm text-black bg-gray-200 rounded hover:bg-gray-300" on:click={deselectAll}>清空</button>
 <!--                        <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectCommon}>常见</button>-->
                         <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" on:click={selectClaude2}>Claude2</button>
+                        <button class="px-4 py-2 text-sm text-black bg-gray-200 rounded hover:bg-gray-300" on:click={deselectAll}>清空</button>
                     </div>
                 </div>
 
@@ -207,3 +208,5 @@
         </div>
     </div>
 {/if}
+
+<Footer/>
