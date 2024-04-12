@@ -121,7 +121,7 @@
 </script>
 
 <section class="rounded-inherit mb-0" aria-labelledby="text-translator-section-heading">
-    <h2 class="sr-only" id="text-translator-section-heading">中英文标点互换</h2>
+    <h1 class="sr-only" id="text-translator-section-heading">中英文标点互换</h1>
     <div class="rounded-inherit">
         <div class="relative z-[2] min-[768px]:col-span-3">
             <div class="flex min-h-[56px] w-full flex-row flex-wrap px-3 py-2">
@@ -166,7 +166,7 @@
             <div class="relative min-h-[240px] min-w-0 md:min-h-[50vh]">
                 <section aria-labelledby="source-heading" class="h-full rounded border-transparent focus-within:border-blue-600 transition-colors">
                     <div class="flex h-full flex-col">
-                        <h3 id="source-heading" class="sr-only">源文本</h3>
+                        <h2 id="source-heading" class="sr-only">源文本</h2>
                         <div class="relative flex-1 rounded">
                             <textarea bind:value={text} placeholder="在此输入文本..." class="w-full h-full p-2 rounded border-2 border-gray-300 focus:outline-none focus:border-blue-600"></textarea>
                         </div>
@@ -176,7 +176,7 @@
 
             <div class="relative min-h-[240px] min-w-0 md:min-h-[50vh]">
                 <section aria-labelledby="target-heading" class="h-full flex flex-col rounded border-transparent">
-                    <h3 id="target-heading" class="sr-only">Translation results</h3>
+                    <h2 id="target-heading" class="sr-only">转换结果</h2>
                     <div class="relative flex-1 flex flex-col rounded">
                         <textarea bind:this={outputArea} readonly placeholder="转换结果" class="w-full h-full p-2 rounded border-2 border-gray-300 focus:outline-none">{result}</textarea>
                     </div>
@@ -196,7 +196,7 @@
                       d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <div class="ml-3">
-                <h3 class="text-sm font-semibold text-gray-700">成功复制到剪贴板！</h3>
+                <h2 class="text-sm font-semibold text-gray-700">成功复制到剪贴板！</h2>
                 <div class="mt-2 text-sm text-gray-500">您现在可以粘贴文本了。</div>
             </div>
         </div>
