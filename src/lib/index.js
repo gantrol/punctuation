@@ -60,7 +60,7 @@ export function punctuationToChinese(text, checkItems) {
     let singleQuoteFlag = false;
     let doubleQuoteFlag = false;
     // TODO: replace ... to …… if has it...
-    if (Object.keys(checkItems).includes('...')) {
+    if (checkItems['...']) {
         text = text.replace(/\.\.\./g, "……");
     }
     let result = text.split("");
