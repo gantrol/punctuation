@@ -59,11 +59,14 @@ function shouldReplacePunctuation(position, text) {
 export function punctuationToChinese(text, checkItems) {
     let singleQuoteFlag = false;
     let doubleQuoteFlag = false;
+    // TODO: replace ... to …… if has it...
+    if (Object.keys(checkItems).includes('...')) {
+        text = text.replace(/\.\.\./g, "……");
+    }
     let result = text.split("");
 
     for (let i = 0; i < result.length; i++) {
         const cur = result[i]
-        console.log(checkItems[cur])
         if (checkItems[cur]) {
             switch (cur) {
                 // 看上下文型
