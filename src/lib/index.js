@@ -115,26 +115,18 @@ export function punctuationToChinese(text, checkItems) {
 
     for (let i = 0; i < result.length; i++) {
         const cur = result[i]
-        if (checkItems[cur]) {
+        if (checkItems[cur] && shouldReplacePunctuation(i, text)) {
             switch (cur) {
-                // 看上下文型
                 case ",":
-                    if (shouldReplacePunctuation(i, text)) {
-                        result[i] = "，";
-                    }
+                    result[i] = "，";
                     break;
                 case ".":
-                    if (shouldReplacePunctuation(i, text)) {
-                        result[i] = "。";
-                    }
+                    result[i] = "。";
                     break;
                 //     TODO: test - ： ——
                 case "-":
-                    if (shouldReplacePunctuation(i, text)) {
-                        result[i] = "——";
-                    }
+                    result[i] = "——";
                     break;
-                // 直换型
                 case ";":
                     result[i] = "；";
                     break;

@@ -1,38 +1,36 @@
-# create-svelte
+# 清理中文中的英文标点
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+中文里用了一堆英文标点，你遇到过这种情况吗？有些 OCR 容易这样，Claude 3 也容易这样。[这个服务](https://p.gantrol.com)就用于处理这个问题
 
-## Creating a project
+常用需要替换的符号是：`...`，`.`，`,`，`?`，`!`，`:`，`;`，`'`，`"`，`[`，`]`，`(`，`)`。
 
-If you're seeing this, you've probably already done this step. Congrats!
+打个比方：
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+```markdown
+有人说过: 那是最美好的时代,那是最糟糕的时代;那是睿智的年月,那是萌妹的年月;那是信心百倍的时期,那是疑虑重重的时期;那是阳光...
 ```
 
-## Developing
+需要转为：
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```markdown
+有人说过：那是最美好的时代，那是最糟糕的时代；那是睿智的年月，那是萌妹的年月；那是信心百倍的时期，那是疑虑重重的时期；那是阳光……
 ```
 
-## Building
+特别地，Claude 2需要替换 `,`，`?`，`!`，`:`，`;`，`“`，`”`，`(`，`)`。
 
-To create a production version of your app:
+当然，有的英文标点是不需要转化的，比如：
 
-```bash
-npm run build
+```markdown
+1. 一行白鹭
+2. 两只黄鹂
+
+abc@example.com
+
+J.K. rowling
+
+$$ y = f(x) $$
+
+for (int i = 0; i < 10; i++)
 ```
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+虽然简单的目前的替换逻辑比较简单，有一些边角场景是不管用的。如果这种服务的需求旺盛，后续可以考虑用机器学习模型持续优化。
