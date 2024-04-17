@@ -6,7 +6,7 @@ describe('test punctuationToChinese', () => {
 	// TODO: 空格怎么办？
 	it('Does not change string for the elements in DoNotChange array', () => {
 		for (let testString of DoNotChange) {
-			expect(punctuationToChinese(testString, {',': true, '.': true, ':': true, ';': true, '...': true, ')': true})).toBe(testString);
+			expect(punctuationToChinese(testString, checkItemsAllTrue)).toBe(testString);
 		}
 	});
 
