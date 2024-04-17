@@ -52,12 +52,20 @@
         ")": "）",
     };
 
+    /**
+     * @type {Object.<string, boolean>}
+     */
     $: checkboxes = (
         inputLanguage === EN2CH
             ? Object.keys(punctuationPairs)
             : Object.values(punctuationPairs)
     )
-        .reduce((acc, punctuation) => {
+        .reduce(
+            (/**
+              * @type {Object.<string, boolean>}
+              */
+             acc,
+             punctuation) => {
         acc[punctuation] = false;
         return acc;
     }, {});
@@ -68,6 +76,13 @@
 
     let copied = false;
 
+    /**
+     * Copies the given content to the clipboard.
+     *
+     * @param {string} copy_content - The content to be copied.
+     *
+     * @return {Promise<void>}
+     */
     async function copyToClipboard(copy_content) {
         try {
             await navigator.clipboard.writeText(copy_content);
@@ -78,6 +93,13 @@
         }
     }
 
+    /**
+     * Retrieves either the keys or values from a dictionary based on the given input language.
+     *
+     * @param {string} inputLanguage - The input language to determine whether to retrieve keys or values.
+     * @param {object} dict - The dictionary object to retrieve keys or values from.
+     * @returns {(string[]|*)} - The array of keys if inputLanguage is 'EN2CH', otherwise the array of values.
+     */
     const keyOrValue = (inputLanguage, dict) => {
         return inputLanguage === EN2CH
             ? Object.keys(dict)
@@ -115,6 +137,10 @@
         }
     }
 
+    /**
+     * A reference to a textarea element used as an output area.
+     * @type {HTMLTextAreaElement}
+     */
     let outputArea;
 
     onMount(() => {
