@@ -2,7 +2,7 @@
  * Replaces punctuation marks in a text with English equivalents.
  *
  * @param {string} text - The text containing punctuation marks to be replaced.
- * @param checkItems
+ * @param {Object.<string, boolean>} checkItems
  * @return {string} - The updated text with English punctuation marks.
  */
 
@@ -101,13 +101,12 @@ function shouldReplacePunctuation(position, text) {
  * Convert punctuation marks in the given text to corresponding Chinese punctuation marks.
  *
  * @param {string} text - The input text.
- * @param checkItems
+ * @param {Object.<string, boolean>} checkItems
  * @return {string} - The text with punctuation marks converted to Chinese punctuation marks.
  */
 export function punctuationToChinese(text, checkItems) {
     let singleQuoteFlag = false;
     let doubleQuoteFlag = false;
-    // TODO: replace ... to …… if has it...
     if (checkItems['...']) {
         text = text.replace(/\.\.\./g, "……");
     }
@@ -123,7 +122,7 @@ export function punctuationToChinese(text, checkItems) {
                 case ".":
                     result[i] = "。";
                     break;
-                //     TODO: test - ： ——
+                //     TODO: add & test - ： ——
                 case "-":
                     result[i] = "——";
                     break;
