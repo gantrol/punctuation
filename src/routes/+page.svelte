@@ -123,7 +123,6 @@
 </script>
 
 <section class="rounded-inherit mb-0" aria-labelledby="text-translator-section-heading">
-    <h1 class="sr-only" id="text-translator-section-heading">中英文标点互换</h1>
     <h1 class="sr-only" id="text-translator-tag-heading">{inputLanguage === EN2CH ? "英文标点转中文": "中文标点转英文"}</h1>
     <div class="rounded-inherit">
         <div class="relative z-[2] min-[768px]:col-span-3">
