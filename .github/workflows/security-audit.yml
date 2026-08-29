@@ -1,0 +1,44 @@
+name: Security audit
+
+on:
+  push:
+    branches:
+      - security/postcss-8.5.23
+    paths:
+      - .github/workflows/security-audit.yml
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.34.5
+          run_install: false
+      - name: Verify frozen install
+        run: pnpm install --frozen-lockfile
+      - name: Audit all dependencies
+        shell: bash
+        run: |
+          set +e
+          pnpm audit --json > audit-all.json
+          code=$?
+          cat audit-all.json
+          echo "AUDIT_ALL_EXIT=$code"
+          exit 0
+      - name: Audit production dependencies
+        shell: bash
+        run: |
+          set +e
+          pnpm audit --prod --json > audit-prod.json
+          code=$?
+          cat audit-prod.json
+          echo "AUDIT_PROD_EXIT=$code"
+          exit 0
