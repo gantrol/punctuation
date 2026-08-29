@@ -41,7 +41,8 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"cookie": "0.7.2"
+			"cookie": "0.7.2",
+			"postcss": "8.5.23"
 		}
 	},
 	"type": "module"
