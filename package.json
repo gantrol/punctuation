@@ -23,7 +23,7 @@
 		"@eslint/js": "^10.0.1",
 		"@playwright/test": "^1.61.1",
 		"@sveltejs/adapter-vercel": "^6.3.4",
-		"@sveltejs/kit": "^2.70.1",
+		"@sveltejs/kit": "^2.70.2",
 		"@sveltejs/vite-plugin-svelte": "^7.2.0",
 		"@tailwindcss/vite": "^4.3.3",
 		"eslint": "^10.7.0",
@@ -41,8 +41,11 @@
 	},
 	"pnpm": {
 		"overrides": {
+			"brace-expansion": "5.0.9",
 			"cookie": "0.7.2",
-			"postcss": "8.5.23"
+			"nanoid": "3.3.18",
+			"postcss": "8.5.23",
+			"tar": "7.5.21"
 		}
 	},
 	"type": "module"
